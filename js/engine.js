@@ -118,10 +118,10 @@ function game_step() {
                 ctx.fillStyle = "rgb(75,75,75,0.9)";
                 ctx.fillRect(SQUARE_WIDTH / 2, SQUARE_WIDTH * 3 / 4, SQUARE_WIDTH * 3, SQUARE_WIDTH * 3/2, 0.5);
                 ctx.fillStyle = "lightgrey";
-                ctx.font = "80px Arial";
+                ctx.font = "60px Arial";
                 ctx.fillText("Player " + current_player + " wins!", SQUARE_WIDTH * 3/4, SQUARE_WIDTH * 3/2);
                 ctx.font = "20px Arial";
-                ctx.fillText("Click 'Reset Board' to start again.", SQUARE_WIDTH * 5/4, SQUARE_WIDTH * 7/4);
+                ctx.fillText("Click 'Reset Board' to start again.", SQUARE_WIDTH * 31/30, SQUARE_WIDTH * 9/5);
             }
             // other wise increment player and change current player icon
             else {
