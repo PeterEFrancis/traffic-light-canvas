@@ -95,7 +95,7 @@ function game_step() {
             var center_x = top_left_x + SQUARE_WIDTH / 2;
             var center_y = top_left_y + SQUARE_WIDTH / 2;
             if (board[square_num] == GREEN) {
-                ctx.fillStyle = "green";
+                ctx.fillStyle = "#00ff00";
                 ctx.fillRect(center_x - size, center_y - size, size * 2, size * 2);
             } else if (board[square_num] == YELLOW) {
                 ctx.fillStyle = "yellow";
@@ -106,7 +106,7 @@ function game_step() {
                 ctx.closePath()
                 ctx.fill();
             } else if (board[square_num] == RED) {
-                ctx.fillStyle = "red";
+                ctx.fillStyle = "#ff5757";
                 ctx.beginPath();
                 ctx.arc(center_x, center_y, size, 0, 2 * Math.PI, false);
                 ctx.fill();
