@@ -1,10 +1,11 @@
 
-const HEIGHT = 600;
-const WIDTH = 800;
-const SQUARE_WIDTH = 200;
-const LINE_WIDTH = 2; // works best if this is even
 const NUM_ROWS = 3;
 const NUM_COLS = 4;
+const HEIGHT = 450;
+const WIDTH = 600;
+const SQUARE_WIDTH = 150;
+const LINE_WIDTH = 2; // works best if this is even
+
 
 const LINES = [ [0,1,2], [1,2,3], [4,5,6], [5,6,7], [8,9,10], [9,10,11],
                 [0,4,8], [1,5,9], [2,6,10], [3,7,11],
@@ -46,8 +47,8 @@ function reset_board() {
     // add the grid lines
     ctx.fillStyle = "lightgrey";
     for (var i = 0; i <= 4; i++) {
-      ctx.fillRect(0 - LINE_WIDTH / 2, i * 200 - LINE_WIDTH / 2, WIDTH, LINE_WIDTH);
-      ctx.fillRect(i * 200 - LINE_WIDTH / 2, 0 - LINE_WIDTH / 2, LINE_WIDTH, HEIGHT);
+      ctx.fillRect(0 - LINE_WIDTH / 2, i * SQUARE_WIDTH - LINE_WIDTH / 2, WIDTH, LINE_WIDTH);
+      ctx.fillRect(i * SQUARE_WIDTH - LINE_WIDTH / 2, 0 - LINE_WIDTH / 2, LINE_WIDTH, HEIGHT);
       // yes, one of these falls over the edge and doesn't get displayed, but that is ok
     }
 }

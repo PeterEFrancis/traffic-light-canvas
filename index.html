@@ -35,33 +35,37 @@
 
   </head>
   <body class="dark" onload="reset_board();">
-    <div class="container" style="min-width:1300px; margin-top: 30px;">
+    <div class="container" style="min-width:670px; margin-top: 30px;">
       <div class="row">
-        <div class="col-md-9">
-          <div class="dark center-block panel" style="width: 840px; padding: 20px;">
-            <canvas id="board" width="800" height="600" onclick="game_step();" style="background-color:black"></canvas>
+        <div class="col-md-8">
+          <div class="dark panel center-block">
+            <canvas id="board" class="center-block" width="600" height="450" onclick="game_step();" style="background-color:black"></canvas>
           </div>
         </div>
-        <div class="col-md-3 center-block" style="max-width: 300px; margin-top:20px;">
-          <div class="dark panel" style="padding: 10px; border: 1px solid lightgrey; user-select: none;">
-            <h1 class="text-center">Traffic Lights</h1>
+        <div class="col-md-4">
+          <div class="dark panel center-block" style="padding: 20px; border: 1px solid lightgrey; user-select: none; max-width: 400px;">
+            <h1 class="text-center" style="margin-top: 0px;">Traffic Lights</h1>
             <br>
             <p class="text-center">Pressing an <strong>off</strong>, <strong style="color:green;">green</strong>,
             or <strong style="color:yellow;">yellow</strong> light turns it <strong style="color:green;">green</strong>,
             <strong style="color:yellow;">yellow</strong>, or <strong style="color:red;">red</strong>, respectively.
             The first player to make three <strong style="color:green;">green</strong>, <strong style="color:yellow;">yellow</strong>,
              or <strong style="color:red;">red</strong> lights in a row horizontally, vertically, or diagonaly wins!</p>
-            <br>
+            <h3 class="text-center">
+              <strong style="color:green;">green &#9632;</strong><br>
+              <strong style="color:yellow;">yellow &#9650;</strong><br>
+              <strong style="color:red;">red &#9679;</strong>
+            </h3>
             <h3 class="text-center">Current Player</h3>
             <div class="container-fluid">
               <div class="row">
                 <div class="col-xs-6">
-                  <div class="current_player_box" id="one">
+                  <div class="current_player_box" id="one" style="margin-left: auto;">
                     <p class="text-center">1</p>
                   </div>
                 </div>
                 <div class="col-xs-6">
-                  <div class="current_player_box" id="two">
+                  <div class="current_player_box" id="two" style="margin-right: auto;">
                     <p class="text-center">2</p>
                   </div>
                 </div>
