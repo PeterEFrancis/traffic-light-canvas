@@ -28,13 +28,16 @@ var board = [0,0,0,0,0,0,0,0,0,0,0,0];
 // current player is either 1 or 2
 var current_player = 1;
 // if game_over, the board cannot be changed
-game_over = false;
+var game_over = false;
+//
+var history_squares = [];
 
 
 function reset_board() {
     game_over = false;
     blank = true;
     board = [0,0,0,0,0,0,0,0,0,0,0,0];
+    history_squares = [];
 
     // reset current player
     current_player = 1;
@@ -53,7 +56,6 @@ function reset_board() {
     }
 }
 
-
 function is_game_over() {
     for (i = 0; i < LINES.length; i++) {
         var line = LINES[i];
@@ -67,6 +69,42 @@ function is_game_over() {
     return false;
 }
 
+function update_square_display(square_num) {
+    var col = square_num % NUM_COLS;
+    var row = Math.floor(square_num / NUM_COLS);
+
+    // clear the square that was clicked
+    var top_left_x = col * SQUARE_WIDTH;
+    var top_left_y = row * SQUARE_WIDTH;
+    ctx.clearRect(top_left_x + LINE_WIDTH / 2, top_left_y + LINE_WIDTH / 2, SQUARE_WIDTH - LINE_WIDTH, SQUARE_WIDTH - LINE_WIDTH);
+    // add shape
+    var size = SQUARE_WIDTH * 0.3;
+    var center_x = top_left_x + SQUARE_WIDTH / 2;
+    var center_y = top_left_y + SQUARE_WIDTH / 2;
+    if (board[square_num] == GREEN) {
+        ctx.fillStyle = "#00ff00";
+        ctx.fillRect(center_x - size, center_y - size, size * 2, size * 2);
+    } else if (board[square_num] == YELLOW) {
+        ctx.fillStyle = "yellow";
+        ctx.beginPath();
+        ctx.moveTo(center_x, center_y - size);
+        ctx.lineTo(center_x + size, center_y + size)
+        ctx.lineTo(center_x - size, center_y + size)
+        ctx.closePath()
+        ctx.fill();
+    } else if (board[square_num] == RED) {
+        ctx.fillStyle = "#ff5757";
+        ctx.beginPath();
+        ctx.arc(center_x, center_y, size, 0, 2 * Math.PI, false);
+        ctx.fill();
+    }
+}
+
+function switch_players() {
+    document.getElementById(["one", "two"][current_player - 1]).style.backgroundColor = "transparent";
+    current_player = 3 - current_player;
+    document.getElementById(["one", "two"][current_player - 1]).style.backgroundColor = "purple";
+}
 
 function game_step() {
     if (!game_over) {
@@ -78,39 +116,16 @@ function game_step() {
         var col = (user_x - (user_x % SQUARE_WIDTH)) / SQUARE_WIDTH;
         var square_num = row * NUM_COLS + col;
 
-
-
         if (board[square_num] < RED) {
 
             // increment the board array
             board[square_num] += 1;
 
+            // add square to history
+            history_squares.push(square_num);
+
             // change the board display (this could be replaced by just clearing and resetting the entire board)
-            // clear the square that was clicked
-            var top_left_x = col * SQUARE_WIDTH;
-            var top_left_y = row * SQUARE_WIDTH;
-            ctx.clearRect(top_left_x + LINE_WIDTH / 2, top_left_y + LINE_WIDTH / 2, SQUARE_WIDTH - LINE_WIDTH, SQUARE_WIDTH - LINE_WIDTH);
-            // add shape
-            var size = SQUARE_WIDTH * 0.3;
-            var center_x = top_left_x + SQUARE_WIDTH / 2;
-            var center_y = top_left_y + SQUARE_WIDTH / 2;
-            if (board[square_num] == GREEN) {
-                ctx.fillStyle = "#00ff00";
-                ctx.fillRect(center_x - size, center_y - size, size * 2, size * 2);
-            } else if (board[square_num] == YELLOW) {
-                ctx.fillStyle = "yellow";
-                ctx.beginPath();
-                ctx.moveTo(center_x, center_y - size);
-                ctx.lineTo(center_x + size, center_y + size)
-                ctx.lineTo(center_x - size, center_y + size)
-                ctx.closePath()
-                ctx.fill();
-            } else if (board[square_num] == RED) {
-                ctx.fillStyle = "#ff5757";
-                ctx.beginPath();
-                ctx.arc(center_x, center_y, size, 0, 2 * Math.PI, false);
-                ctx.fill();
-            }
+            update_square_display(square_num);
 
             // check for game winner
             game_over = is_game_over();
@@ -122,18 +137,27 @@ function game_step() {
                 ctx.fillText("Player " + current_player + " wins!", SQUARE_WIDTH * 3/4, SQUARE_WIDTH * 3/2);
                 ctx.font = "20px Arial";
                 ctx.fillText("Click 'Reset Board' to start again.", SQUARE_WIDTH * 31/30, SQUARE_WIDTH * 9/5);
+                document.getElementById("undo-button").disabled = true;
+            } else {
+                switch_players();
+                document.getElementById("undo-button").disabled = false;
             }
-            // other wise increment player and change current player icon
-            else {
-                document.getElementById(["one", "two"][current_player - 1]).style.backgroundColor = "transparent";
-                current_player = 3 - current_player;
-                document.getElementById(["one", "two"][current_player - 1]).style.backgroundColor = "purple";
-            }
-
         }
 
     }
 
 
 
+}
+
+function undo_step() {
+    if (history_squares.length > 0 && !game_over) {
+        var square_num = history_squares.pop();
+        board[square_num] -= 1;
+        update_square_display(square_num);
+        switch_players();
+        if (history_squares.length == 0) {
+            document.getElementById("undo-button").disabled = true;
+        }
+    }
 }

@@ -47,12 +47,12 @@
     <div class="container" style="min-width:670px; margin-top: 30px;">
       <div class="row">
         <div class="col-md-8">
-          <div class="dark panel center-block">
+          <div class="dark center-block" style="margin-bottom: 20px; border-radius: 5px;">
             <canvas id="board" class="center-block" width="600" height="450" onclick="game_step();" style="background-color:black"></canvas>
           </div>
         </div>
         <div class="col-md-4">
-          <div class="dark panel center-block" style="padding: 20px; border: 1px solid lightgrey; user-select: none; max-width: 400px;">
+          <div class="dark center-block" style="padding: 20px; border: 1px solid lightgrey; user-select: none; max-width: 400px;">
             <h1 class="text-center" style="margin-top: 0px;">Traffic Lights</h1>
             <br>
             <p class="text-center">Pressing an <strong>off</strong>, <strong style="color:var(--green);">green</strong>,
@@ -65,26 +65,29 @@
               <strong style="color:yellow;">yellow &#9650;</strong><br>
               <strong style="color:var(--red);">red &#9679;</strong>
             </h3>
-            <h3 class="text-center">Current Player</h3>
-            <div class="container-fluid">
-              <div class="row">
-                <div class="col-xs-6">
-                  <div class="current_player_box" id="one" style="margin-left: auto;">
-                    <p class="text-center">1</p>
-                  </div>
+          </div>
+          <h3 class="text-center">Current Player</h3>
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-xs-6">
+                <div class="current_player_box" id="one" style="margin-left: auto;">
+                  <p class="text-center">1</p>
                 </div>
-                <div class="col-xs-6">
-                  <div class="current_player_box" id="two" style="margin-right: auto;">
-                    <p class="text-center">2</p>
-                  </div>
+              </div>
+              <div class="col-xs-6">
+                <div class="current_player_box" id="two" style="margin-right: auto;">
+                  <p class="text-center">2</p>
                 </div>
               </div>
             </div>
-            <br><br>
-            <button class="btn btn-block btn-lg btn-primary center-block" style="border:0px;" onclick="reset_board()" id="reset-button">
-            Reset Board
-            </button>
-        </div>
+          </div>
+          <br><br>
+          <button class="btn btn-block btn-lg btn-primary center-block" onclick="reset_board()">
+          Reset Board
+          </button>
+          <button class="btn btn-block btn-lg btn-warning center-block" onclick="undo_step()" disabled id="undo-button">
+          Undo
+          </button>
         </div>
       </div>
       <div class="row">
